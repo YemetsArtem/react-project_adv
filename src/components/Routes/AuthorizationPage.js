@@ -13,7 +13,7 @@ class AuthorizationPage extends Component {
         const { loading } = this.props;
         
         return (
-            <div>
+            <React.Fragment>
                 <Menu menuTitle="Authorization Page">
                     <MenuItem path="/authorization/signin">Sign In</MenuItem>
                     <MenuItem path="/authorization/signup">Sign Up</MenuItem>
@@ -27,7 +27,7 @@ class AuthorizationPage extends Component {
                     render={() => <SignUpForm onSubmit={this.handleSignUp} />}
                 />
                 {loading && <Loader />}
-            </div>
+            </React.Fragment>
         );
     }
 

@@ -1,6 +1,6 @@
-import firebase from 'firebase';
+import firebase from 'firebase'
 import { appName } from '../config'
-import { Record } from 'immutable';
+import { Record } from 'immutable'
 
 const ReducerRecord = Record({
     user: null,
@@ -56,3 +56,7 @@ export function signUp(email, password) {
             }))
     }
 }
+
+firebase.auth().onAuthStateChanged(user => {
+    
+})
