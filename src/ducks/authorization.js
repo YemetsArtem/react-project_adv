@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import { appName } from '../config'
 import { Record } from 'immutable'
-import { apply, all, put, take } from 'redux-saga/effects';
+import { call, all, put, take, cps } from 'redux-saga/effects';
 
 const ReducerRecord = Record({
     user: null,
@@ -14,6 +14,7 @@ export const moduleName = "authorization";
 export const SIGN_UP_REQUEST = `${appName}/${moduleName}/SIGN_UP_REQUEST`;
 export const SIGN_UP_SUCCESS = `${appName}/${moduleName}/SIGN_UP_SUCCESS`;
 export const SIGN_UP_ERROR = `${appName}/${moduleName}/SIGN_UP_ERROR`;
+export const SIGN_IN_SUCCESS = `${appName}/${moduleName}/SIGN_IN_SUCCESS`;
 
 // Reducer
 export default function reducer(state = new ReducerRecord(), action) {
@@ -47,23 +48,47 @@ export function signUp(email, password) {
     }
 }
 
-export const signUpSaga = function * () {
-    const action = yield take(SIGN_UP_REQUEST);
-
+export const signUpSaga = function* () {
     const auth = firebase.auth();
-    const user =  yield apply(
-        [auth, auth.createUserWithEmailAndPassword], 
-        [action.payload.email, action.payload.password]
-    )
 
-    yield put({
-        type: SIGN_UP_SUCCESS,
-        payload: {user}
-    })
+    while(true) {
+        const action = yield take(SIGN_UP_REQUEST);
+
+        try {
+            const user = yield call(
+                [auth, auth.createUserWithEmailAndPassword],
+                action.payload.email, action.payload.password
+            )
+    
+            yield put({
+                type: SIGN_UP_SUCCESS,
+                payload: { user }
+            })
+        } catch (error) {
+            yield put({
+                type: SIGN_UP_ERROR,
+                error
+            })
+        }
+    }
 }
 
-export const saga = function * () {
+export const watchStatusChange = function* () {
+    const auth = firebase.auth();
+
+    try {
+        yield cps([auth, auth.onAuthStateChanged]);
+    } catch(user) {
+        yield put({
+            type: SIGN_IN_SUCCESS,
+            payload: { user }
+        })
+    }
+}
+
+export const saga = function* () {
     yield all([
-         signUpSaga()
+        signUpSaga(),
+        watchStatusChange()
     ])
 }

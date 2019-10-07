@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import reducer from "./reducer"
-import { saga } from '../ducks/people'
+import rootSaga  from './saga'
 
 export const history = createBrowserHistory();
 
@@ -19,7 +19,7 @@ const enhancer = applyMiddleware(
 const store = createStore(reducer(history), enhancer);
 window.store = store;
 
-sagaMiddleware.run(saga)
+sagaMiddleware.run(rootSaga);
 
 export default store;
 
