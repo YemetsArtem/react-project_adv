@@ -19,7 +19,8 @@ export class NewPersonForm extends Component {
         )
     }
 }
- 
+
+
 const validate = ({ firstName, email }) => {
     const errors = {};
 
