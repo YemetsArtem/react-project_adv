@@ -24,7 +24,7 @@ const validate = ({ email, password }) => {
 
     if (!email) errors.email = "email is required";
     if (!password) errors.password = "password is required";
-    else if (password.length < 8) errors.password = "to short";
+    else if (password.length < 6) errors.password = "to short";
 
     return errors;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { signUp, moduleName } from '../../ducks/authorization'
+import { signUp, signIn, moduleName } from '../../ducks/authorization'
 import SignInForm from '../Authorization/SignInForm'
 import SignUpForm from '../Authorization/SignUpForm'
 import Menu from '../Menu'
@@ -31,10 +31,10 @@ class AuthorizationPage extends Component {
         );
     }
 
-    handleSignIn = values => console.log(values);
+    handleSignIn = ({ email, password }) => this.props.signIn(email, password);   
     handleSignUp = ({ email, password }) => this.props.signUp(email, password);   
 }
 
 export default connect(state=>({
     loading: state[moduleName].loading
-}), { signUp })(AuthorizationPage);
+}), { signIn, signUp })(AuthorizationPage);
