@@ -37,7 +37,7 @@ export default function reducer(state = new ReducerRecord(), action) {
         
         case FETCH_ALL_SUCCESS:
             return state
-                .set("loading", true)
+                .set("loading", false)
                 .set("loaded", true)
                 .set("entities", fbDataToEntities(payload, EventRecord))
  
