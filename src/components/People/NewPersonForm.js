@@ -10,8 +10,8 @@ export class NewPersonForm extends Component {
             <div className="user-form">
                 <h2>Add new person</h2>
                 <form onSubmit={handleSubmit}>
-                    <Field name="first-name" component={ErrorField} type="text" />
-                    <Field name="last-name" component={ErrorField} type="text" />
+                    <Field name="firstName" component={ErrorField} type="text" />
+                    <Field name="lastName" component={ErrorField} type="text" />
                     <Field name="email" component={ErrorField} type="email" />
                     <input type="submit" />
                 </form>
@@ -19,7 +19,6 @@ export class NewPersonForm extends Component {
         )
     }
 }
-
 
 const validate = ({ firstName, email }) => {
     const errors = {};
@@ -29,7 +28,6 @@ const validate = ({ firstName, email }) => {
 
     return errors;
 }
-
 
 export default reduxForm({
     form: 'people',

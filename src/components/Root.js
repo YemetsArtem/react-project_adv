@@ -30,7 +30,7 @@ class Root extends Component {
                     <Redirect from="/" to="/authorization" exact />
                     <ProtectedRoute path="/admin" component={AdminPage} />
                     <ProtectedRoute path="/people" component={PersonPage} />
-                    <Route path="/events" component={EventsPage} />
+                    <ProtectedRoute path="/events" component={EventsPage} />
                     <Route path="/authorization" component={AuthorizationPage} />           
                 </Switch>
             </React.Fragment>
