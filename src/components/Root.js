@@ -9,6 +9,7 @@ import MenuItem from './MenuItem'
 import ProtectedRoute from './Common/ProtectedRoute'
 import { connect } from 'react-redux'
 import { moduleName, signOut } from '../ducks/authorization'
+import CustomDragLayer from './CustomDragLayer'
 
 class Root extends Component {
     render() {
@@ -33,6 +34,7 @@ class Root extends Component {
                     <ProtectedRoute path="/events" component={EventsPage} />
                     <Route path="/authorization" component={AuthorizationPage} />           
                 </Switch>
+                <CustomDragLayer />
             </React.Fragment>
         );
     }

@@ -3,7 +3,6 @@ import PeopleList from "../People/PeopleList"
 import EventTable from '../Events/VirtualizedEventList'
 import SelectedEvents from '../Events/SelectedEvents'
 
-
 class AdminPage extends Component {
     render() {
         return (
