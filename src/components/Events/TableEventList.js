@@ -42,6 +42,7 @@ export class EventList extends Component {
     }
 }
 
+
 export default connect(state => ({
     events: eventListSelector(state),
     loading: state[moduleName].loading

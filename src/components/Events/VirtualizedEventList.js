@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchLazy, selectEvent, eventListSelector, moduleName } from '../../ducks/events'
-import Loader from '../Common/Loader'
 import { Table, Column, InfiniteLoader } from 'react-virtualized'
+import Loader from '../Common/Loader'
+import EventListItem from './EventListItem'
 import 'react-virtualized/styles.css'
+
 
 export class EventList extends Component {
     componentDidMount() {
@@ -32,6 +34,7 @@ export class EventList extends Component {
                         height={600}
                         onRowClick={this.handleRowClick}
                         onRowsRendered={onRowsRendered}
+                        rowRenderer={this.getRowRenderer}
                     >
                         <Column
                             dataKey="title"
@@ -54,6 +57,8 @@ export class EventList extends Component {
         )
     }
 
+    getRowRenderer = (rowCtx) => <EventListItem {...rowCtx} />
+
     isRowLoaded = ({ index }) => index < this.props.events.length;
 
     loadMoreRows = () => { this.props.fetchLazy() };
@@ -65,6 +70,7 @@ export class EventList extends Component {
         selectEvent && selectEvent(rowData.uid);
     }
 }
+
 
 export default connect(state => ({
     events: eventListSelector(state),
